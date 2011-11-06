@@ -15,6 +15,7 @@
 // @include     http://template-toolkit.org/*
 // @include     http://docs.python.org/*
 // @include     http://developer.appcelerator.com/apidoc/mobile/*
+// @include     http://processing.org/reference/*
 // @require     http://jqueryjs.googlecode.com/files/jquery-1.3.min.js
 // @require     https://github.com/cho45/jsdeferred/raw/master/jsdeferred.userscript.js
 // @require     https://raw.github.com/gist/3239/60d2584ef263909bc3571b29a73aa720d7891b68/puredomconstructor.js#createElementFromString
@@ -954,6 +955,18 @@
 				}
 			}
 			return null;
+		}
+	};
+
+	Chemr.DomainFunctions["processing.org/reference/"] = {
+		indexer : function (page, document) {
+			if (!page) return this.pushPage("http://processing.org/reference/");
+
+			var anchors = document.querySelectorAll('.category a');
+			for (var i = 0, len = anchors.length; i < len; i++) {
+				var a = anchors[i];
+				this.pushIndex(a.textContent + "\t" + a.href);
+			}
 		}
 	};
 //
